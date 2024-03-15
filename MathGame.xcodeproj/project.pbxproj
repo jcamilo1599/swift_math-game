@@ -7,18 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DD6C4482BA42A5F00A86C89 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C4472BA42A5F00A86C89 /* Localizable.xcstrings */; };
 		0DFEE5C22BA3CF7B0047DF51 /* MathGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFEE5C12BA3CF7B0047DF51 /* MathGameApp.swift */; };
 		0DFEE5C42BA3CF7B0047DF51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFEE5C32BA3CF7B0047DF51 /* ContentView.swift */; };
 		0DFEE5C62BA3CF7C0047DF51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DFEE5C52BA3CF7C0047DF51 /* Assets.xcassets */; };
 		0DFEE5C92BA3CF7C0047DF51 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DFEE5C82BA3CF7C0047DF51 /* Preview Assets.xcassets */; };
+		0DFEE5D02BA3CF940047DF51 /* AnswerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFEE5CF2BA3CF940047DF51 /* AnswerButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DD6C4472BA42A5F00A86C89 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0DFEE5BE2BA3CF7B0047DF51 /* MathGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MathGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DFEE5C12BA3CF7B0047DF51 /* MathGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathGameApp.swift; sourceTree = "<group>"; };
 		0DFEE5C32BA3CF7B0047DF51 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0DFEE5C52BA3CF7C0047DF51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DFEE5C82BA3CF7C0047DF51 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0DFEE5CF2BA3CF940047DF51 /* AnswerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,9 @@
 			isa = PBXGroup;
 			children = (
 				0DFEE5C12BA3CF7B0047DF51 /* MathGameApp.swift */,
+				0DFEE5CF2BA3CF940047DF51 /* AnswerButtonView.swift */,
 				0DFEE5C32BA3CF7B0047DF51 /* ContentView.swift */,
+				0DD6C4472BA42A5F00A86C89 /* Localizable.xcstrings */,
 				0DFEE5C52BA3CF7C0047DF51 /* Assets.xcassets */,
 				0DFEE5C72BA3CF7C0047DF51 /* Preview Content */,
 			);
@@ -109,6 +115,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 0DFEE5B52BA3CF7B0047DF51;
 			productRefGroup = 0DFEE5BF2BA3CF7B0047DF51 /* Products */;
@@ -127,6 +134,7 @@
 			files = (
 				0DFEE5C92BA3CF7C0047DF51 /* Preview Assets.xcassets in Resources */,
 				0DFEE5C62BA3CF7C0047DF51 /* Assets.xcassets in Resources */,
+				0DD6C4482BA42A5F00A86C89 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DFEE5D02BA3CF940047DF51 /* AnswerButtonView.swift in Sources */,
 				0DFEE5C42BA3CF7B0047DF51 /* ContentView.swift in Sources */,
 				0DFEE5C22BA3CF7B0047DF51 /* MathGameApp.swift in Sources */,
 			);
