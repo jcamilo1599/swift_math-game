@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var firstNumber = 0
     @State private var secondNumber = 0
     @State private var difficulty = 1000
-    @State private var score = 0
+    @State private var record = 0
     @State private var isCorrect = false
     @State private var isFirstAnswer = true
     
@@ -48,7 +48,7 @@ struct ContentView: View {
                 }
                 
                 if (!isFirstAnswer) {
-                    Text(isCorrect ? "successMessageKeepGoing" : "failureMessageContinue")
+                    Text(isCorrect ? "successMessage" : "failureMessage")
                         .foregroundColor(isCorrect ? .green : .red)
                         .font(.headline)
                         .bold()
@@ -59,7 +59,7 @@ struct ContentView: View {
             .navigationTitle("appName")
             
             .navigationBarItems(
-                trailing: Text("score \(String(score))")
+                trailing: Text("record \(String(record))")
                     .font(.headline)
                     .bold()
             )
@@ -72,9 +72,9 @@ struct ContentView: View {
         self.isFirstAnswer = false;
         
         if answer == correctAnswer {
-            self.score += 1
+            self.record += 1
         } else {
-            self.score -= 1
+            self.record = 0
         }
     }
     

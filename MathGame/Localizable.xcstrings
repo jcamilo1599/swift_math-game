@@ -2,19 +2,32 @@
   "sourceLanguage" : "en",
   "strings" : {
     "%lld" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
     "%lld + %lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
+            "value" : "%1$lld + %2$lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$lld + %2$lld"
           }
         }
       }
     },
-    "appName" : {
+    "addition" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -31,41 +44,58 @@
         }
       }
     },
-    "failureMessageContinue" : {
+    "appName" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You have failed, let's continue."
+            "value" : "MathQuest"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Has fallado, continuemos"
+            "value" : "MathQuest"
           }
         }
       }
     },
-    "score %@" : {
+    "failureMessage" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Score: %@"
+            "value" : "You have failed. Let's start over!"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puntaje: %@"
+            "value" : "Has fallado ¡comencemos de nuevo!"
           }
         }
       }
     },
-    "successMessageKeepGoing" : {
+    "record %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record: %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record: %@"
+          }
+        }
+      }
+    },
+    "successMessage" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
