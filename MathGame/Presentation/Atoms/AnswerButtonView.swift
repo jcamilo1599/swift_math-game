@@ -12,15 +12,15 @@ struct AnswerButtonView: View {
     
     var body: some View {
         Text("\(number)")
-            .frame(width: 110, height: 110)
-            .font(.system(size: 30, weight: .bold))
+            .frame(width: 130, height: 130)
+            .font(.system(size: 28, weight: .bold))
             .foregroundColor(Color.white)
-            .background(Color.orange)
+            .background(.orange)
             .clipShape(Circle())
             .padding()
     }
 }
 
 #Preview {
-    AnswerButtonView(number: 1000)
+    AnswerButtonView(number: 10000)
 }
