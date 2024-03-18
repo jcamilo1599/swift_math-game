@@ -35,7 +35,7 @@ struct CalculationView: View {
     @State private var correctAnswer = 0
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Text("\(firstNumber) \(getSign()) \(secondNumber)")
                     .font(.largeTitle)
