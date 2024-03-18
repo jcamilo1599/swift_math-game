@@ -11,18 +11,18 @@
         }
       }
     },
-    "%lld + %lld" : {
+    "%lld %@ %lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$lld + %2$lld"
+            "state" : "new",
+            "value" : "%1$lld %2$@ %3$lld"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$lld + %2$lld"
+            "value" : "%1$lld %2$@ %3$lld"
           }
         }
       }
@@ -33,13 +33,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Addition Game"
+            "value" : "Additions"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Juego de Sumas"
+            "value" : "Sumas"
           }
         }
       }
@@ -61,6 +61,23 @@
         }
       }
     },
+    "division" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Divisions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Divisiones"
+          }
+        }
+      }
+    },
     "failureMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -78,6 +95,23 @@
         }
       }
     },
+    "multiplication" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiplications"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiplicaciones"
+          }
+        }
+      }
+    },
     "record %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -91,6 +125,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Record: %@"
+          }
+        }
+      }
+    },
+    "subtraction" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subtractions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restas"
           }
         }
       }
