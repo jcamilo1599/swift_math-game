@@ -6,4 +6,4 @@ challenge your mind in a fun way.
 
 Develop your mental agility with addition, subtraction, multiplication and division in a challenging and fun way.
 
-![image](image.gif)
+![image](image.GIF)
