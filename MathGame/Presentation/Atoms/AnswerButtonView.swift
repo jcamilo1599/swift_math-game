@@ -8,19 +8,31 @@
 import SwiftUI
 
 struct AnswerButtonView: View {
-    var number : Int
+    var number: Int
     
     var body: some View {
         Text("\(number)")
-            .frame(width: 130, height: 130)
-            .font(.system(size: 28, weight: .bold))
-            .foregroundColor(Color.white)
-            .background(.orange)
-            .clipShape(Circle())
-            .padding()
+            .font(.system(size: 32, weight: .bold, design: .rounded))
+            .frame(maxWidth: .infinity, maxHeight: 80)
+            .background(
+                LinearGradient(
+                    colors: [Color.appPrimary.opacity(0.8), Color.appPrimary.opacity(0.6)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .foregroundColor(.white)
+            .cornerRadius(16)
+            .shadow(color: Color.appPrimary.opacity(0.4), radius: 8, x: 0, y: 4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(.white.opacity(0.3), lineWidth: 1)
+            )
     }
 }
 
 #Preview {
-    AnswerButtonView(number: 10000)
+    AnswerButtonView(number: 100)
+        .padding()
+        .background(Color.black)
 }

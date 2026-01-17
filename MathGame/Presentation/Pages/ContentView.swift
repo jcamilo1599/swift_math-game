@@ -8,46 +8,71 @@
 import SwiftUI
 
 struct ContentView: View {
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         NavigationStack {
-            List {
-                NavigationLink {
-                    CalculationView(
-                        title: "addition",
-                        action: CalculationType.addition
-                    )
-                } label: {
-                    Text("addition")
-                }
+            ZStack {
+                Color.appBackground.ignoresSafeArea()
                 
-                NavigationLink {
-                    CalculationView(
-                        title: "subtraction",
-                        action: CalculationType.subtraction
-                    )
-                } label: {
-                    Text("subtraction")
-                }
-                
-                NavigationLink {
-                    CalculationView(
-                        title: "division",
-                        action: CalculationType.division
-                    )
-                } label: {
-                    Text("division")
-                }
-                
-                NavigationLink {
-                    CalculationView(
-                        title: "multiplication",
-                        action: CalculationType.multiplication
-                    )
-                } label: {
-                    Text("multiplication")
+                ScrollView {
+                    VStack(spacing: 20) {
+                        Text("Math Challenge")
+                            .font(.system(size: 38, weight: .heavy, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.top, 20)
+                        
+                        Text("Choose your mode")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            MenuCard(title: "Addition", icon: "plus", color: .blue, type: .addition)
+                            MenuCard(title: "Subtraction", icon: "minus", color: .red, type: .subtraction)
+                            MenuCard(title: "Multiplication", icon: "multiply", color: .orange, type: .multiplication)
+                            MenuCard(title: "Division", icon: "divide", color: .purple, type: .division)
+                        }
+                        .padding()
+                    }
                 }
             }
-            .navigationTitle("appName")
+        }
+        .preferredColorScheme(.dark)
+    }
+}
+
+struct MenuCard: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let type: CalculationType
+    
+    var body: some View {
+        NavigationLink(destination: CalculationView(action: type)) {
+            VStack(spacing: 15) {
+                Image(systemName: icon)
+                    .font(.system(size: 40))
+                    .foregroundColor(color)
+                    .padding()
+                    .background(color.opacity(0.2))
+                    .clipShape(Circle())
+                
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.white)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 160)
+            .background(Color.appSurface)
+            .cornerRadius(20)
+            .shadow(color: color.opacity(0.3), radius: 8, y: 5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(color.opacity(0.5), lineWidth: 1)
+            )
         }
     }
 }

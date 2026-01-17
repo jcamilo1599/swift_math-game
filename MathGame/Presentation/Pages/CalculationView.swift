@@ -8,151 +8,239 @@
 import SwiftUI
 
 struct CalculationView: View {
-    // Parámetros
-    var title: String;
-    var action: CalculationType;
-
-    // Numeros para la operación
-    @State private var firstNumber = 0
-    @State private var secondNumber = 0
+    @StateObject private var viewModel: GameViewModel
+    @Environment(\.dismiss) var dismiss
     
-    // Lista de opciones
-    @State private var choiceArray : [Int] = [0, 1, 2, 3]
-    
-    // Dificultad del juego
-    @State private var difficulty = 1000
-    
-    // Cantidad de respuestas correctas sin fallar
-    @State private var record = 0
-    
-    // Determina si la respuesta fue correcta o no
-    @State private var isCorrect = false
-    
-    // Determina si es la primer pregunta o no
-    @State private var isFirstAnswer = true
-    
-    // Valor de la respuesta correcta de la operación
-    @State private var correctAnswer = 0
+    init(action: CalculationType) {
+        _viewModel = StateObject(wrappedValue: GameViewModel(operation: action))
+    }
     
     var body: some View {
-        NavigationStack {
+        ZStack {
+            Color.appBackground.ignoresSafeArea()
+            
+            // Feedback Overlay
+            viewModel.feedbackColor
+                .ignoresSafeArea()
+                .animation(.easeInOut(duration: 0.2), value: viewModel.feedbackColor)
+            
             VStack {
-                Text("\(firstNumber) \(getSign()) \(secondNumber)")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.bottom, 20)
-                
+                // Header
                 HStack {
-                    ForEach(0..<2) { index in
-                        Button {
-                            answerIsCorrect(answer: choiceArray[index])
-                            generateAnswers()
-                        } label: {
-                            AnswerButtonView(number: choiceArray[index])
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                    HStack(spacing: 4) {
+                        ForEach(0..<3) { index in
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(index < viewModel.lives ? .red : .gray.opacity(0.3))
                         }
                     }
-                }
-                
-                HStack {
-                    ForEach(2..<4) { index in
-                        Button {
-                            answerIsCorrect(answer: choiceArray[index])
-                            generateAnswers()
-                        } label: {
-                            AnswerButtonView(number: choiceArray[index])
-                        }
-                    }
-                }
-                
-                if (!isFirstAnswer) {
-                    Text(isCorrect ? "successMessage" : "failureMessage")
-                        .foregroundColor(isCorrect ? .green : .red)
+                    Spacer()
+                    Text("Score: \(viewModel.score)")
                         .font(.headline)
-                        .bold()
-                        .padding(.top, 20)
+                        .monospacedDigit()
+                        .foregroundColor(.appAccent)
+                }
+                .padding()
+                
+                Spacer()
+                
+                // Question Card
+                VStack(spacing: 20) {
+                    Text("Solve this")
+                        .font(.caption)
+                        .textCase(.uppercase)
+                        .foregroundColor(.gray)
+                    
+                    Text(viewModel.currentQuestion)
+                        .font(.system(size: 60, weight: .heavy, design: .default))
+                        .foregroundColor(.white)
+                        .shadow(color: .white.opacity(0.2), radius: 10, x: 0, y: 0)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 250)
+                .background(Color.appSurface)
+                .cornerRadius(30)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .top, endPoint: .bottom), lineWidth: 1)
+                )
+                .padding(.horizontal)
+                .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
+                
+                Spacer()
+                
+                // Answers Grid
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                    ForEach(viewModel.choices, id: \.self) { choice in
+                        Button {
+                            viewModel.selectAnswer(choice)
+                        } label: {
+                            AnswerButtonView(number: choice)
+                        }
+                    }
+                }
+                .padding()
+                .padding(.bottom, 20)
+            }
+            .blur(radius: viewModel.isGameOver ? 10 : 0)
+            
+            // Game Over Modal
+            if viewModel.isGameOver {
+                GameOverView(score: viewModel.score) {
+                    viewModel.resetGame()
                 }
             }
-            .onAppear(perform: generateAnswers)
-            .navigationTitle(NSLocalizedString(title, comment: ""))
-            .navigationBarItems(
-                trailing: Text("record \(String(record))")
-                    .font(.headline)
-                    .bold()
-            )
         }
-        
+        .navigationBarHidden(true)
     }
-    
-    private func answerIsCorrect(answer: Int) {
-        isCorrect = answer == correctAnswer;
-        isFirstAnswer = false;
-        
-        if isCorrect {
-            record += 1
-        } else {
-            record = 0
-        }
-    }
-    
-    private func generateAnswers() {
-        var answerList = [Int]()
-        
-        switch action {
-        case .addition: 
-            firstNumber = Int.random(in: 0...(difficulty / 2))
-            secondNumber = Int.random(in: 0...(difficulty / 2))
-            correctAnswer = firstNumber + secondNumber
-            
-            for _ in 0...2 {
-                answerList.append(Int.random(in: 0...difficulty))
-            }
-        case .subtraction:
-            firstNumber = Int.random(in: 0...difficulty)
-            secondNumber = Int.random(in: 0...difficulty)
-            correctAnswer = firstNumber - secondNumber
-            
-            for _ in 0...2 {
-                answerList.append(Int.random(in: -difficulty...difficulty))
-            }
-        case .division:
-            firstNumber = Int.random(in: 0...difficulty)
-            secondNumber = Int.random(in: 0...(difficulty / 10))
-            correctAnswer = firstNumber / secondNumber
-            
-            for _ in 0...2 {
-                answerList.append(Int.random(in: 0...difficulty))
-            }
-        case .multiplication:
-            firstNumber = Int.random(in: 0...(difficulty / 10))
-            secondNumber = Int.random(in: 0...(difficulty / 10))
-            correctAnswer = firstNumber * secondNumber
-            
-            for _ in 0...2 {
-                answerList.append(Int.random(in: 0...(difficulty * 10)))
-            }
-        }
-        
-        answerList.append(correctAnswer)
-        choiceArray = answerList.shuffled()
-    }
-    
-    private func getSign() -> String {
-        let sign: String;
+}
 
-        switch action {
-        case .addition: sign = "+";
-        case .subtraction: sign = "-";
-        case .division: sign = "÷";
-        case .multiplication: sign = "×"
+// Subview for Game Over to keep main view clean
+struct GameOverView: View {
+    let score: Int
+    let action: () -> Void
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        VStack(spacing: 25) {
+            Text("GAME OVER")
+                .font(.system(size: 40, weight: .black))
+                .foregroundColor(.red)
+            
+            VStack {
+                Text("Final Score")
+                    .foregroundColor(.gray)
+                Text("\(score)")
+                    .font(.system(size: 60, weight: .bold))
+                    .foregroundColor(.white)
+            }
+            
+            Button(action: action) {
+                Text("Try Again")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .frame(width: 200, height: 50)
+                    .background(Color.appAccent)
+                    .cornerRadius(25)
+            }
+            
+            Button(action: { dismiss() }) {
+                Text("Main Menu")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding(40)
+        .background(Color.appSurface)
+        .cornerRadius(30)
+        .shadow(radius: 20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(Color.appAccent, lineWidth: 2)
+        )
+    }
+}
+
+class GameViewModel: ObservableObject {
+    @Published var currentQuestion: String = ""
+    @Published var choices: [Int] = []
+    @Published var score: Int = 0
+    @Published var lives: Int = 3
+    @Published var isGameOver: Bool = false
+    @Published var feedbackColor: Color = .clear
+    
+    private var correctAnswer: Int = 0
+    private var selectedOperation: CalculationType
+    
+    init(operation: CalculationType) {
+        self.selectedOperation = operation
+        generateQuestion()
+    }
+    
+    func generateQuestion() {
+        let num1 = Int.random(in: 1...20)
+        let num2 = Int.random(in: 1...20)
+        
+        switch selectedOperation {
+        case .addition:
+            correctAnswer = num1 + num2
+            currentQuestion = "\(num1) + \(num2)"
+        case .subtraction:
+            correctAnswer = num1
+            // Ensure positive results for simplicity
+            currentQuestion = "\(num1 + num2) - \(num2)"
+        case .multiplication:
+            // Smaller numbers for multiplication to keep it playable
+            let m1 = Int.random(in: 2...10)
+            let m2 = Int.random(in: 2...10)
+            correctAnswer = m1 * m2
+            currentQuestion = "\(m1) × \(m2)"
+        case .division:
+            let d1 = Int.random(in: 2...10)
+            let d2 = Int.random(in: 2...10)
+            let product = d1 * d2
+            correctAnswer = d1
+            currentQuestion = "\(product) ÷ \(d2)"
         }
         
-        return sign;
+        generateChoices()
+    }
+    
+    private func generateChoices() {
+        var options = Set<Int>()
+        options.insert(correctAnswer)
+        
+        while options.count < 4 {
+            let offset = Int.random(in: -10...10)
+            let wrongAnswer = correctAnswer + offset
+            if wrongAnswer != correctAnswer && wrongAnswer >= 0 {
+                options.insert(wrongAnswer)
+            }
+        }
+        
+        choices = Array(options).shuffled()
+    }
+    
+    func selectAnswer(_ answer: Int) {
+        if answer == correctAnswer {
+            score += 10
+            withAnimation {
+                feedbackColor = .green.opacity(0.5)
+            }
+            // Delay for feedback
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.feedbackColor = .clear
+                self.generateQuestion()
+            }
+        } else {
+            lives -= 1
+            withAnimation {
+                feedbackColor = .red.opacity(0.5)
+            }
+            if lives <= 0 {
+                isGameOver = true
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.feedbackColor = .clear
+                    self.generateQuestion()
+                }
+            }
+        }
+    }
+    
+    func resetGame() {
+        score = 0
+        lives = 3
+        isGameOver = false
+        generateQuestion()
     }
 }
 
 #Preview {
-    CalculationView(
-        title: "multiplication",
-        action: CalculationType.multiplication
-    )
+    CalculationView(action: .addition)
 }

@@ -1,10 +1,3 @@
-//
-//  MathGameApp.swift
-//  MathGame
-//
-//  Created by Juan Camilo Marín Ochoa on 14/03/24.
-//
-
 import SwiftUI
 
 struct AppTheme {
@@ -50,14 +43,5 @@ struct NeoCard: ViewModifier {
 extension View {
     func neoCardStyle() -> some View {
         self.modifier(NeoCard())
-    }
-}
-
-@main
-struct MathGameApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
     }
 }
