@@ -62,7 +62,7 @@ struct MenuCard: View {
                     .background(color.opacity(0.2))
                     .clipShape(Circle())
                 
-                Text(title)
+                Text(LocalizedStringKey(title))
                     .font(.headline)
                     .foregroundColor(.white)
             }

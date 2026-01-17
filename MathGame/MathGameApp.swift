@@ -18,7 +18,7 @@ struct AppTheme {
     static let fallbackBackground = Color(red: 0.1, green: 0.1, blue: 0.15) // Dark Blue/Grey
     static let fallbackSurface = Color(red: 0.15, green: 0.15, blue: 0.22)
     static let fallbackPrimary = Color(red: 0.0, green: 0.8, blue: 0.8) // Cyan
-    static let fallbackAccent = Color(red: 1.0, green: 0.4, blue: 0.6) // Pink
+    static let fallbackAccent = Color(red: 1.0, green: 0.8, blue: 0.0) // Gold/Yellow
     
     struct Buttons {
         static let radius: CGFloat = 20

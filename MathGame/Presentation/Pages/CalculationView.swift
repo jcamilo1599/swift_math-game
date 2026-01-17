@@ -140,7 +140,7 @@ struct CalculationView: View {
                 if viewModel.isGameOver {
                     GameOverView(score: viewModel.score) {
                         viewModel.resetGame()
-                    }
+                    }.padding(.all, 50)
                 }
             }
         }
@@ -156,9 +156,11 @@ struct GameOverView: View {
     
     var body: some View {
         VStack(spacing: 25) {
-            Text("GAME OVER")
+            Text(LocalizedStringKey("GAME OVER"))
                 .font(.system(size: 40, weight: .black))
                 .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
             
             VStack {
                 Text("Final Score")
