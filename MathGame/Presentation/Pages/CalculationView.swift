@@ -16,83 +16,131 @@ struct CalculationView: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.appBackground.ignoresSafeArea()
-            
-            // Feedback Overlay
-            viewModel.feedbackColor
-                .ignoresSafeArea()
-                .animation(.easeInOut(duration: 0.2), value: viewModel.feedbackColor)
-            
-            VStack {
-                // Header
-                HStack {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title)
-                            .foregroundColor(.gray)
-                    }
-                    Spacer()
-                    HStack(spacing: 4) {
-                        ForEach(0..<3) { index in
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(index < viewModel.lives ? .red : .gray.opacity(0.3))
+        GeometryReader { geometry in
+            ZStack {
+                Color.appBackground.ignoresSafeArea()
+                
+                // Feedback Overlay
+                viewModel.feedbackColor
+                    .ignoresSafeArea()
+                    .animation(.easeInOut(duration: 0.2), value: viewModel.feedbackColor)
+                
+                let isLandscape = geometry.size.width > geometry.size.height
+                
+                VStack {
+                    // Header
+                    HStack {
+                        Button(action: { dismiss() }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.gray)
                         }
+                        Spacer()
+                        HStack(spacing: 4) {
+                            ForEach(0..<3) { index in
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(index < viewModel.lives ? .red : .gray.opacity(0.3))
+                            }
+                        }
+                        Spacer()
+                        Text("Score: \(viewModel.score)")
+                            .font(.headline)
+                            .monospacedDigit()
+                            .foregroundColor(.appAccent)
                     }
-                    Spacer()
-                    Text("Score: \(viewModel.score)")
-                        .font(.headline)
-                        .monospacedDigit()
-                        .foregroundColor(.appAccent)
-                }
-                .padding()
-                
-                Spacer()
-                
-                // Question Card
-                VStack(spacing: 20) {
-                    Text("Solve this")
-                        .font(.caption)
-                        .textCase(.uppercase)
-                        .foregroundColor(.gray)
+                    .padding()
                     
-                    Text(viewModel.currentQuestion)
-                        .font(.system(size: 60, weight: .heavy, design: .default))
-                        .foregroundColor(.white)
-                        .shadow(color: .white.opacity(0.2), radius: 10, x: 0, y: 0)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 250)
-                .background(Color.appSurface)
-                .cornerRadius(30)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .top, endPoint: .bottom), lineWidth: 1)
-                )
-                .padding(.horizontal)
-                .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
-                
-                Spacer()
-                
-                // Answers Grid
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                    ForEach(viewModel.choices, id: \.self) { choice in
-                        Button {
-                            viewModel.selectAnswer(choice)
-                        } label: {
-                            AnswerButtonView(number: choice)
+                    if isLandscape {
+                        HStack(spacing: 20) {
+                            // Question Card (Left Side)
+                            VStack(spacing: 20) {
+                                Text("Solve this")
+                                    .font(.caption)
+                                    .textCase(.uppercase)
+                                    .foregroundColor(.gray)
+                                
+                                Text(viewModel.currentQuestion)
+                                    .font(.system(size: 60, weight: .heavy, design: .default))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .white.opacity(0.2), radius: 10, x: 0, y: 0)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(maxHeight: .infinity)
+                            .background(Color.appSurface)
+                            .cornerRadius(30)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .top, endPoint: .bottom), lineWidth: 1)
+                            )
+                            .padding(.leading)
+                            .padding(.bottom)
+                            .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
+                            
+                            // Answers Grid (Right Side)
+                            ScrollView {
+                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                                    ForEach(viewModel.choices, id: \.self) { choice in
+                                        Button {
+                                            viewModel.selectAnswer(choice)
+                                        } label: {
+                                            AnswerButtonView(number: choice)
+                                        }
+                                    }
+                                }
+                                .padding(.trailing)
+                                .padding(.bottom)
+                            }
                         }
+                    } else {
+                        // Portrait Layout
+                        Spacer()
+                        
+                        // Question Card
+                        VStack(spacing: 20) {
+                            Text("Solve this")
+                                .font(.caption)
+                                .textCase(.uppercase)
+                                .foregroundColor(.gray)
+                            
+                            Text(viewModel.currentQuestion)
+                                .font(.system(size: 60, weight: .heavy, design: .default))
+                                .foregroundColor(.white)
+                                .shadow(color: .white.opacity(0.2), radius: 10, x: 0, y: 0)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 250)
+                        .background(Color.appSurface)
+                        .cornerRadius(30)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .top, endPoint: .bottom), lineWidth: 1)
+                        )
+                        .padding(.horizontal)
+                        .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
+                        
+                        Spacer()
+                        
+                        // Answers Grid
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                            ForEach(viewModel.choices, id: \.self) { choice in
+                                Button {
+                                    viewModel.selectAnswer(choice)
+                                } label: {
+                                    AnswerButtonView(number: choice)
+                                }
+                            }
+                        }
+                        .padding()
+                        .padding(.bottom, 20)
                     }
                 }
-                .padding()
-                .padding(.bottom, 20)
-            }
-            .blur(radius: viewModel.isGameOver ? 10 : 0)
-            
-            // Game Over Modal
-            if viewModel.isGameOver {
-                GameOverView(score: viewModel.score) {
-                    viewModel.resetGame()
+                .blur(radius: viewModel.isGameOver ? 10 : 0)
+                
+                // Game Over Modal
+                if viewModel.isGameOver {
+                    GameOverView(score: viewModel.score) {
+                        viewModel.resetGame()
+                    }
                 }
             }
         }
@@ -186,6 +234,15 @@ class GameViewModel: ObservableObject {
             let product = d1 * d2
             correctAnswer = d1
             currentQuestion = "\(product) ÷ \(d2)"
+        case .power:
+            let base = Int.random(in: 2...10)
+            correctAnswer = base * base
+            currentQuestion = "\(base)²"
+        case .root:
+            let root = Int.random(in: 2...15)
+            let square = root * root
+            correctAnswer = root
+            currentQuestion = "√\(square)"
         }
         
         generateChoices()

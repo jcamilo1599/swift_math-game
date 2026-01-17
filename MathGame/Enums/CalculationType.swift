@@ -10,4 +10,6 @@ enum CalculationType {
     case subtraction
     case division
     case multiplication
+    case power
+    case root
 }
