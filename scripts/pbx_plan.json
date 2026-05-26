@@ -1,0 +1,40 @@
+{
+  "groups": [
+    ["Domain", "MathGame"],
+    ["Data", "MathGame"],
+    ["Services", "MathGame"],
+    ["Theme", "Presentation"],
+    ["Molecules", "Presentation"],
+    ["ViewModels", "Presentation"]
+  ],
+  "files": [
+    ["MathGame/Domain/Models.swift", "Domain"],
+    ["MathGame/Domain/QuestionGenerator.swift", "Domain"],
+    ["MathGame/Domain/Scoring.swift", "Domain"],
+
+    ["MathGame/Data/PersistenceModels.swift", "Data"],
+    ["MathGame/Data/PersistenceController.swift", "Data"],
+    ["MathGame/Data/AchievementCatalog.swift", "Data"],
+    ["MathGame/Data/ProgressionEngine.swift", "Data"],
+    ["MathGame/Data/DailyChallengeService.swift", "Data"],
+    ["MathGame/Data/GameCenterService.swift", "Data"],
+    ["MathGame/Data/NotificationScheduler.swift", "Data"],
+
+    ["MathGame/Services/AudioEngine.swift", "Services"],
+    ["MathGame/Services/HapticEngine.swift", "Services"],
+
+    ["MathGame/Presentation/Theme/AppTheme.swift", "Theme"],
+    ["MathGame/Presentation/Atoms/Atoms.swift", "Atoms"],
+    ["MathGame/Presentation/Molecules/Molecules.swift", "Molecules"],
+    ["MathGame/Presentation/ViewModels/GameViewModel.swift", "ViewModels"],
+    ["MathGame/Presentation/ViewModels/DailyViewModel.swift", "ViewModels"],
+    ["MathGame/Presentation/ViewModels/ProfileViewModel.swift", "ViewModels"],
+
+    ["MathGame/Presentation/Pages/DailyView.swift", "Pages"],
+    ["MathGame/Presentation/Pages/ProfileView.swift", "Pages"],
+    ["MathGame/Presentation/Pages/AchievementsView.swift", "Pages"],
+    ["MathGame/Presentation/Pages/StatsView.swift", "Pages"],
+    ["MathGame/Presentation/Pages/OnboardingView.swift", "Pages"],
+    ["MathGame/Presentation/Pages/SettingsView.swift", "Pages"]
+  ]
+}
