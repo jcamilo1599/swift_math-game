@@ -1,84 +1,246 @@
 //
 //  ContentView.swift
-//  MathGame
+//  MathGame — Presentation/Pages
 //
-//  Created by Juan Camilo Marín Ochoa on 14/03/24.
+//  Home screen. Adaptive: NavigationStack on iPhone, NavigationSplitView on iPad/Mac.
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.horizontalSizeClass) private var hSize
+    @Query private var players: [Player]
+
+    @State private var dailyVM: DailyViewModel? = nil
+    @State private var route: AppRoute? = nil
+    @State private var countdownText: String = ""
+
+    enum AppRoute: Hashable {
+        case daily
+        case mode(GameMode)
+        case profile
+        case stats
+        case achievements
+        case settings
+    }
+
+    private var player: Player {
+        players.first ?? PersistenceController.loadOrCreatePlayer(in: modelContext)
+    }
+
+    private var bestScoreLookup: [GameMode: Int] {
+        Dictionary(uniqueKeysWithValues: player.bestScores.compactMap { bs in
+            GameMode(rawValue: bs.modeKey).map { ($0, bs.score) }
+        })
+    }
+
+    private var completedDailyToday: Bool {
+        guard let last = player.lastDailyCompletedOn else { return false }
+        return Calendar.current.isDateInToday(last)
+    }
+
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.appBackground.ignoresSafeArea()
-                
-                ScrollView {
-                    VStack(spacing: 20) {
-                        Text("Math Challenge")
-                            .font(.system(size: 38, weight: .heavy, design: .rounded))
-                            .foregroundColor(.white)
-                            .padding(.top, 20)
-                        
-                        Text("Choose your mode")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            MenuCard(title: "Addition", icon: "plus", color: .blue, type: .addition)
-                            MenuCard(title: "Subtraction", icon: "minus", color: .red, type: .subtraction)
-                            MenuCard(title: "Multiplication", icon: "multiply", color: .orange, type: .multiplication)
-                            MenuCard(title: "Division", icon: "divide", color: .purple, type: .division)
-                            MenuCard(title: "Square", icon: "bolt.fill", color: .green, type: .power)
-                            MenuCard(title: "Square Root", icon: "x.squareroot", color: .cyan, type: .root)
-                        }
-                        .padding()
-                    }
-                }
+        Group {
+            if hSize == .regular {
+                splitLayout
+            } else {
+                stackLayout
             }
         }
         .preferredColorScheme(.dark)
+        .sheet(isPresented: Binding(
+            get: { !player.didCompleteOnboarding },
+            set: { _ in }
+        )) {
+            OnboardingView { player.didCompleteOnboarding = true; try? modelContext.save() }
+                .interactiveDismissDisabled()
+        }
+        .task(id: "countdown-tick") { await tickCountdown() }
     }
-}
 
-struct MenuCard: View {
-    let title: String
-    let icon: String
-    let color: Color
-    let type: CalculationType
-    
-    var body: some View {
-        NavigationLink(destination: CalculationView(action: type)) {
-            VStack(spacing: 15) {
-                Image(systemName: icon)
-                    .font(.system(size: 32, weight: .black))
-                    .foregroundColor(color)
-                    .frame(width: 70, height: 70)
-                    .background(color.opacity(0.2))
-                    .clipShape(Circle())
-                
-                Text(LocalizedStringKey(title))
-                    .font(.headline)
-                    .foregroundColor(.white)
+    // MARK: - Layouts
+
+    private var stackLayout: some View {
+        NavigationStack {
+            ZStack {
+                Color.appBackground.ignoresSafeArea()
+                ScrollView {
+                    homeContent
+                        .padding(.horizontal, AppTheme.Spacing.l)
+                        .padding(.bottom, AppTheme.Spacing.xl)
+                }
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 160)
-            .background(Color.appSurface)
-            .cornerRadius(20)
-            .shadow(color: color.opacity(0.3), radius: 8, y: 5)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(color.opacity(0.5), lineWidth: 1)
-            )
+            .navigationDestination(for: AppRoute.self, destination: destination)
+            .toolbar(content: toolbarContent)
+        }
+    }
+
+    @ViewBuilder
+    private var splitLayout: some View {
+        NavigationSplitView {
+            sidebar
+                .toolbar { ToolbarItem(placement: .principal) { brandLogo } }
+        } detail: {
+            NavigationStack {
+                ZStack {
+                    Color.appBackground.ignoresSafeArea()
+                    ScrollView {
+                        homeContent
+                            .padding(.horizontal, AppTheme.Spacing.xl)
+                            .padding(.bottom, AppTheme.Spacing.xl)
+                            .frame(maxWidth: 880)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .navigationDestination(for: AppRoute.self, destination: destination)
+                .toolbar(content: toolbarContent)
+            }
+        }
+    }
+
+    // MARK: - Sidebar (iPad/Mac)
+
+    private var sidebar: some View {
+        List(selection: $route) {
+            Section {
+                Label("nav.daily", systemImage: "sun.max.fill").tag(AppRoute.daily)
+            }
+            Section("nav.classic") {
+                ForEach(GameMode.classic) { mode in
+                    Label(LocalizedStringKey(mode.titleKey), systemImage: mode.sfSymbol)
+                        .tag(AppRoute.mode(mode))
+                }
+            }
+            Section("nav.more") {
+                ForEach(GameMode.advanced) { mode in
+                    Label(LocalizedStringKey(mode.titleKey), systemImage: mode.sfSymbol)
+                        .tag(AppRoute.mode(mode))
+                }
+            }
+            Section {
+                Label("nav.profile", systemImage: "person.fill").tag(AppRoute.profile)
+                Label("nav.stats", systemImage: "chart.bar.fill").tag(AppRoute.stats)
+                Label("nav.achievements", systemImage: "trophy.fill").tag(AppRoute.achievements)
+                Label("nav.settings", systemImage: "gear").tag(AppRoute.settings)
+            }
+        }
+        .listStyle(.sidebar)
+        .navigationTitle("app.name")
+    }
+
+    // MARK: - Home content (both layouts)
+
+    private var homeContent: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.l) {
+            header
+
+            NavigationLink(value: AppRoute.daily) {
+                DailyCard(
+                    completedToday: completedDailyToday,
+                    currentStreak: player.currentStreak,
+                    countdownText: countdownText
+                )
+            }
+            .buttonStyle(.plain)
+
+            SectionHeader(titleKey: "nav.classic")
+            modeGrid(modes: GameMode.classic)
+
+            SectionHeader(titleKey: "nav.more")
+            modeGrid(modes: GameMode.advanced)
+        }
+        .padding(.top, AppTheme.Spacing.l)
+    }
+
+    private func modeGrid(modes: [GameMode]) -> some View {
+        LazyVGrid(columns: [GridItem(.flexible(), spacing: AppTheme.Spacing.m), GridItem(.flexible(), spacing: AppTheme.Spacing.m)], spacing: AppTheme.Spacing.m) {
+            ForEach(modes) { mode in
+                NavigationLink(value: AppRoute.mode(mode)) {
+                    ModeCard(mode: mode, bestScore: bestScoreLookup[mode])
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("app.name")
+                .font(.system(size: 38, weight: .black, design: .rounded))
+                .foregroundStyle(.white)
+            Text("home.subtitle")
+                .font(.system(.subheadline, design: .rounded))
+                .foregroundStyle(.white.opacity(0.6))
+            XPBar(level: player.level, current: player.xpProgress.current, next: player.xpProgress.next)
+                .padding(.top, 8)
+        }
+    }
+
+    // MARK: - Toolbar / destination
+
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            NavigationLink(value: AppRoute.profile) {
+                Image(systemName: "person.crop.circle")
+                    .foregroundStyle(.white)
+            }
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            HStack(spacing: 12) {
+                NavigationLink(value: AppRoute.achievements) {
+                    Image(systemName: "trophy.fill").foregroundStyle(Color.appAccent)
+                }
+                NavigationLink(value: AppRoute.settings) {
+                    Image(systemName: "gear").foregroundStyle(.white)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func destination(_ route: AppRoute) -> some View {
+        switch route {
+        case .daily:
+            DailyView(player: player)
+        case .mode(let mode):
+            CalculationView(mode: mode, player: player)
+        case .profile:
+            ProfileView(player: player)
+        case .stats:
+            StatsView(player: player)
+        case .achievements:
+            AchievementsView(player: player)
+        case .settings:
+            SettingsView(player: player)
+        }
+    }
+
+    private var brandLogo: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "function").foregroundStyle(Color.appAccent)
+            Text("app.name").font(.system(.headline, design: .rounded, weight: .heavy))
+                .foregroundStyle(.white)
+        }
+    }
+
+    // MARK: - Countdown tick
+
+    private func tickCountdown() async {
+        while !Task.isCancelled {
+            let s = Int(DailyChallengeService.secondsUntilNextChallenge())
+            let h = s / 3600
+            let m = (s % 3600) / 60
+            let sec = s % 60
+            countdownText = String(format: "%02d:%02d:%02d", h, m, sec)
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
         }
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(PreviewPersistence.container)
 }
