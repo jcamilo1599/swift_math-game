@@ -2,7 +2,8 @@
 //  ContentView.swift
 //  MathGame — Presentation/Pages
 //
-//  Home screen. Adaptive: NavigationStack on iPhone, NavigationSplitView on iPad/Mac.
+//  Home screen. A single NavigationStack for every size class — the natural,
+//  reliable iOS pattern. On iPad the content is simply centered/width-limited.
 //
 
 import SwiftUI
@@ -13,7 +14,6 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var hSize
     @Query private var players: [Player]
 
-    @State private var path: [AppRoute] = []
     @State private var countdownText: String = ""
 
     enum AppRoute: Hashable {
@@ -40,13 +40,25 @@ struct ContentView: View {
         return Calendar.current.isDateInToday(last)
     }
 
+    /// On iPad/Mac (regular width) keep the content readable instead of stretching edge to edge.
+    private var contentMaxWidth: CGFloat { hSize == .regular ? 760 : .infinity }
+
     var body: some View {
-        Group {
-            if hSize == .regular {
-                splitLayout
-            } else {
-                stackLayout
+        NavigationStack {
+            ZStack {
+                Color.appBackground.ignoresSafeArea()
+                ScrollView {
+                    homeContent
+                        .frame(maxWidth: contentMaxWidth)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, AppTheme.Spacing.l)
+                        .padding(.bottom, AppTheme.Spacing.xl)
+                }
             }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: AppRoute.self, destination: destination)
+            .toolbar(content: toolbarContent)
         }
         .preferredColorScheme(.dark)
         .sheet(isPresented: Binding(
@@ -59,86 +71,7 @@ struct ContentView: View {
         .task(id: "countdown-tick") { await tickCountdown() }
     }
 
-    // MARK: - Layouts
-
-    /// Single source of truth for navigation. The sidebar's selection reads/writes
-    /// the last element of `path`, so selecting an item pushes its destination and
-    /// `dismiss()` inside a pushed view pops back to home — on both iPhone and iPad.
-    private var selectionBinding: Binding<AppRoute?> {
-        Binding(
-            get: { path.last },
-            set: { newValue in
-                if let v = newValue { path = [v] } else { path = [] }
-            }
-        )
-    }
-
-    private var stackLayout: some View {
-        NavigationStack(path: $path) {
-            homeScroll(horizontalPadding: AppTheme.Spacing.l, constrained: false)
-                .navigationDestination(for: AppRoute.self, destination: destination)
-                .toolbar(content: toolbarContent)
-        }
-    }
-
-    @ViewBuilder
-    private var splitLayout: some View {
-        NavigationSplitView {
-            sidebar
-                .toolbar { ToolbarItem(placement: .principal) { brandLogo } }
-        } detail: {
-            NavigationStack(path: $path) {
-                homeScroll(horizontalPadding: AppTheme.Spacing.xl, constrained: true)
-                    .navigationDestination(for: AppRoute.self, destination: destination)
-                    .toolbar(content: toolbarContent)
-            }
-        }
-    }
-
-    private func homeScroll(horizontalPadding: CGFloat, constrained: Bool) -> some View {
-        ZStack {
-            Color.appBackground.ignoresSafeArea()
-            ScrollView {
-                homeContent
-                    .frame(maxWidth: constrained ? 880 : .infinity)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, horizontalPadding)
-                    .padding(.bottom, AppTheme.Spacing.xl)
-            }
-        }
-    }
-
-    // MARK: - Sidebar (iPad/Mac)
-
-    private var sidebar: some View {
-        List(selection: selectionBinding) {
-            Section {
-                Label("nav.daily", systemImage: "sun.max.fill").tag(AppRoute.daily)
-            }
-            Section("nav.classic") {
-                ForEach(GameMode.classic) { mode in
-                    Label(LocalizedStringKey(mode.titleKey), systemImage: mode.sfSymbol)
-                        .tag(AppRoute.mode(mode))
-                }
-            }
-            Section("nav.more") {
-                ForEach(GameMode.advanced) { mode in
-                    Label(LocalizedStringKey(mode.titleKey), systemImage: mode.sfSymbol)
-                        .tag(AppRoute.mode(mode))
-                }
-            }
-            Section {
-                Label("nav.profile", systemImage: "person.fill").tag(AppRoute.profile)
-                Label("nav.stats", systemImage: "chart.bar.fill").tag(AppRoute.stats)
-                Label("nav.achievements", systemImage: "trophy.fill").tag(AppRoute.achievements)
-                Label("nav.settings", systemImage: "gear").tag(AppRoute.settings)
-            }
-        }
-        .listStyle(.sidebar)
-        .navigationTitle("app.name")
-    }
-
-    // MARK: - Home content (both layouts)
+    // MARK: - Home content
 
     private var homeContent: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.l) {
@@ -163,7 +96,11 @@ struct ContentView: View {
     }
 
     private func modeGrid(modes: [GameMode]) -> some View {
-        LazyVGrid(columns: [GridItem(.flexible(), spacing: AppTheme.Spacing.m), GridItem(.flexible(), spacing: AppTheme.Spacing.m)], spacing: AppTheme.Spacing.m) {
+        LazyVGrid(
+            columns: [GridItem(.flexible(), spacing: AppTheme.Spacing.m),
+                      GridItem(.flexible(), spacing: AppTheme.Spacing.m)],
+            spacing: AppTheme.Spacing.m
+        ) {
             ForEach(modes) { mode in
                 NavigationLink(value: AppRoute.mode(mode)) {
                     ModeCard(mode: mode, bestScore: bestScoreLookup[mode])
@@ -195,15 +132,22 @@ struct ContentView: View {
                 Image(systemName: "person.crop.circle")
                     .foregroundStyle(.white)
             }
+            .accessibilityLabel(Text("nav.profile"))
         }
         ToolbarItem(placement: .topBarTrailing) {
-            HStack(spacing: 12) {
+            HStack(spacing: 14) {
+                NavigationLink(value: AppRoute.stats) {
+                    Image(systemName: "chart.bar.fill").foregroundStyle(.white)
+                }
+                .accessibilityLabel(Text("nav.stats"))
                 NavigationLink(value: AppRoute.achievements) {
                     Image(systemName: "trophy.fill").foregroundStyle(Color.appAccent)
                 }
+                .accessibilityLabel(Text("nav.achievements"))
                 NavigationLink(value: AppRoute.settings) {
                     Image(systemName: "gear").foregroundStyle(.white)
                 }
+                .accessibilityLabel(Text("nav.settings"))
             }
         }
     }
@@ -223,14 +167,6 @@ struct ContentView: View {
             AchievementsView(player: player)
         case .settings:
             SettingsView(player: player)
-        }
-    }
-
-    private var brandLogo: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "function").foregroundStyle(Color.appAccent)
-            Text("app.name").font(.system(.headline, design: .rounded, weight: .heavy))
-                .foregroundStyle(.white)
         }
     }
 
