@@ -13,8 +13,7 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var hSize
     @Query private var players: [Player]
 
-    @State private var dailyVM: DailyViewModel? = nil
-    @State private var route: AppRoute? = nil
+    @State private var path: [AppRoute] = []
     @State private var countdownText: String = ""
 
     enum AppRoute: Hashable {
@@ -62,18 +61,23 @@ struct ContentView: View {
 
     // MARK: - Layouts
 
-    private var stackLayout: some View {
-        NavigationStack {
-            ZStack {
-                Color.appBackground.ignoresSafeArea()
-                ScrollView {
-                    homeContent
-                        .padding(.horizontal, AppTheme.Spacing.l)
-                        .padding(.bottom, AppTheme.Spacing.xl)
-                }
+    /// Single source of truth for navigation. The sidebar's selection reads/writes
+    /// the last element of `path`, so selecting an item pushes its destination and
+    /// `dismiss()` inside a pushed view pops back to home — on both iPhone and iPad.
+    private var selectionBinding: Binding<AppRoute?> {
+        Binding(
+            get: { path.last },
+            set: { newValue in
+                if let v = newValue { path = [v] } else { path = [] }
             }
-            .navigationDestination(for: AppRoute.self, destination: destination)
-            .toolbar(content: toolbarContent)
+        )
+    }
+
+    private var stackLayout: some View {
+        NavigationStack(path: $path) {
+            homeScroll(horizontalPadding: AppTheme.Spacing.l, constrained: false)
+                .navigationDestination(for: AppRoute.self, destination: destination)
+                .toolbar(content: toolbarContent)
         }
     }
 
@@ -83,19 +87,23 @@ struct ContentView: View {
             sidebar
                 .toolbar { ToolbarItem(placement: .principal) { brandLogo } }
         } detail: {
-            NavigationStack {
-                ZStack {
-                    Color.appBackground.ignoresSafeArea()
-                    ScrollView {
-                        homeContent
-                            .padding(.horizontal, AppTheme.Spacing.xl)
-                            .padding(.bottom, AppTheme.Spacing.xl)
-                            .frame(maxWidth: 880)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .navigationDestination(for: AppRoute.self, destination: destination)
-                .toolbar(content: toolbarContent)
+            NavigationStack(path: $path) {
+                homeScroll(horizontalPadding: AppTheme.Spacing.xl, constrained: true)
+                    .navigationDestination(for: AppRoute.self, destination: destination)
+                    .toolbar(content: toolbarContent)
+            }
+        }
+    }
+
+    private func homeScroll(horizontalPadding: CGFloat, constrained: Bool) -> some View {
+        ZStack {
+            Color.appBackground.ignoresSafeArea()
+            ScrollView {
+                homeContent
+                    .frame(maxWidth: constrained ? 880 : .infinity)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, horizontalPadding)
+                    .padding(.bottom, AppTheme.Spacing.xl)
             }
         }
     }
@@ -103,7 +111,7 @@ struct ContentView: View {
     // MARK: - Sidebar (iPad/Mac)
 
     private var sidebar: some View {
-        List(selection: $route) {
+        List(selection: selectionBinding) {
             Section {
                 Label("nav.daily", systemImage: "sun.max.fill").tag(AppRoute.daily)
             }
