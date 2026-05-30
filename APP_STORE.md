@@ -36,32 +36,32 @@ A COMPLETE REBUILD
 Version 2.0 is a from-the-ground-up upgrade — and it's free for everyone who already owns the app. One purchase, no ads, no subscriptions, ever.
 
 DAILY CHALLENGE
-• 10 mixed questions, fresh every midnight
-• Earn 1–3 stars and keep your streak alive
-• Compare your score on Game Center leaderboards
+- 10 mixed questions, fresh every midnight
+- Earn 1–3 stars and keep your streak alive
+- Compare your score on Game Center leaderboards
 
 TEN GAME MODES
-• Addition, Subtraction, Multiplication, Division
-• Square and Square Root
-• Time Attack — 60 seconds, maximum score
-• Survival — one life, how far can you go?
-• Mixed — every operation at once
-• Sequence — what number comes next?
+- Addition, Subtraction, Multiplication, Division
+- Square and Square Root
+- Time Attack — 60 seconds, maximum score
+- Survival — one life, how far can you go?
+- Mixed — every operation at once
+- Sequence — what number comes next?
 
 PROGRESS THAT STICKS
-• Level up with XP from every correct answer
-• 20 achievements to unlock
-• Track your best scores and daily history with clean charts
+- Level up with XP from every correct answer
+- 20 achievements to unlock
+- Track your best scores and daily history with clean charts
 
 PLAYS EVERYWHERE
-• iPhone and iPad with a layout built for each
-• Apple Watch for a 60-second brain sprint on the go
-• Mac, with keyboard shortcuts
+- iPhone and iPad with a layout built for each
+- Apple Watch for a 60-second brain sprint on the go
+- Mac, with keyboard shortcuts
 
 POLISHED TO THE DETAIL
-• Satisfying sound and haptics (both optional)
-• Full VoiceOver and Dynamic Type support
-• Dark mode designed in, not bolted on
+- Satisfying sound and haptics (both optional)
+- Full VoiceOver and Dynamic Type support
+- Dark mode designed in, not bolted on
 
 No ads. No subscriptions. No tracking. Just you and the numbers — every day.
 ```
@@ -70,13 +70,13 @@ No ads. No subscriptions. No tracking. Just you and the numbers — every day.
 ```
 MathGame 2.0 is a complete reimagining — and it's a free upgrade.
 
-• DAILY CHALLENGE: a new 10-question test every day, the same for everyone, with stars and streaks.
-• STREAKS, XP & LEVELS: come back daily to keep your streak; earn XP and level up.
-• 4 NEW MODES: Time Attack, Survival, Mixed and Sequence.
-• GAME CENTER: leaderboards for every mode and 20 achievements.
-• APPLE WATCH & MAC: play on every Apple device you own.
-• SOUND, HAPTICS & A NEW LOOK: a premium feel, with full accessibility.
-• MORE LANGUAGES: now in English, Spanish, French and Portuguese.
+- DAILY CHALLENGE: a new 10-question test every day, the same for everyone, with stars and streaks.
+- STREAKS, XP & LEVELS: come back daily to keep your streak; earn XP and level up.
+- 4 NEW MODES: Time Attack, Survival, Mixed and Sequence.
+- GAME CENTER: leaderboards for every mode and 20 achievements.
+- APPLE WATCH & MAC: play on every Apple device you own.
+- SOUND, HAPTICS & A NEW LOOK: a premium feel, with full accessibility.
+- MORE LANGUAGES: now in English, Spanish, French and Portuguese.
 
 Thank you for playing. Your streak starts today.
 ```
@@ -107,32 +107,32 @@ RECONSTRUIDO POR COMPLETO
 La versión 2.0 es una mejora total — y es gratis para quienes ya tienen la app. Un solo pago, sin anuncios, sin suscripciones, nunca.
 
 RETO DIARIO
-• 10 preguntas mixtas, nuevas cada medianoche
-• Gana de 1 a 3 estrellas y mantén tu racha
-• Compara tu puntaje en los rankings de Game Center
+- 10 preguntas mixtas, nuevas cada medianoche
+- Gana de 1 a 3 estrellas y mantén tu racha
+- Compara tu puntaje en los rankings de Game Center
 
 DIEZ MODOS DE JUEGO
-• Suma, Resta, Multiplicación, División
-• Cuadrado y Raíz Cuadrada
-• Contrarreloj — 60 segundos, máxima puntuación
-• Supervivencia — una vida, ¿hasta dónde llegas?
-• Mezclado — todas las operaciones a la vez
-• Secuencia — ¿qué número sigue?
+- Suma, Resta, Multiplicación, División
+- Cuadrado y Raíz Cuadrada
+- Contrarreloj — 60 segundos, máxima puntuación
+- Supervivencia — una vida, ¿hasta dónde llegas?
+- Mezclado — todas las operaciones a la vez
+- Secuencia — ¿qué número sigue?
 
 PROGRESO QUE ENGANCHA
-• Sube de nivel con la XP de cada acierto
-• 20 logros por desbloquear
-• Revisa tus mejores puntajes y tu historial diario con gráficas claras
+- Sube de nivel con la XP de cada acierto
+- 20 logros por desbloquear
+- Revisa tus mejores puntajes y tu historial diario con gráficas claras
 
 JUEGA EN TODAS PARTES
-• iPhone y iPad con un diseño hecho para cada uno
-• Apple Watch para un sprint mental de 60 segundos
-• Mac, con atajos de teclado
+- iPhone y iPad con un diseño hecho para cada uno
+- Apple Watch para un sprint mental de 60 segundos
+- Mac, con atajos de teclado
 
 CUIDADO AL DETALLE
-• Sonido y vibración satisfactorios (ambos opcionales)
-• Soporte completo de VoiceOver y texto dinámico
-• Modo oscuro pensado desde el diseño
+- Sonido y vibración satisfactorios (ambos opcionales)
+- Soporte completo de VoiceOver y texto dinámico
+- Modo oscuro pensado desde el diseño
 
 Sin anuncios. Sin suscripciones. Sin rastreo. Solo tú y los números — cada día.
 ```
@@ -141,13 +141,13 @@ Sin anuncios. Sin suscripciones. Sin rastreo. Solo tú y los números — cada d
 ```
 Math Game 2.0 es una reinvención completa — y es una actualización gratis.
 
-• RETO DIARIO: una prueba nueva de 10 preguntas cada día, igual para todos, con estrellas y rachas.
-• RACHAS, XP Y NIVELES: vuelve cada día para mantener tu racha; gana XP y sube de nivel.
-• 4 MODOS NUEVOS: Contrarreloj, Supervivencia, Mezclado y Secuencia.
-• GAME CENTER: rankings de cada modo y 20 logros.
-• APPLE WATCH Y MAC: juega en todos tus dispositivos Apple.
-• SONIDO, VIBRACIÓN Y NUEVO DISEÑO: una sensación premium, con accesibilidad completa.
-• MÁS IDIOMAS: ahora en inglés, español, francés y portugués.
+- RETO DIARIO: una prueba nueva de 10 preguntas cada día, igual para todos, con estrellas y rachas.
+- RACHAS, XP Y NIVELES: vuelve cada día para mantener tu racha; gana XP y sube de nivel.
+- 4 MODOS NUEVOS: Contrarreloj, Supervivencia, Mezclado y Secuencia.
+- GAME CENTER: rankings de cada modo y 20 logros.
+- APPLE WATCH Y MAC: juega en todos tus dispositivos Apple.
+- SONIDO, VIBRACIÓN Y NUEVO DISEÑO: una sensación premium, con accesibilidad completa.
+- MÁS IDIOMAS: ahora en inglés, español, francés y portugués.
 
 Gracias por jugar. Tu racha empieza hoy.
 ```
@@ -178,32 +178,32 @@ ENTIÈREMENT RECONSTRUIT
 La version 2.0 est une refonte totale — et c'est gratuit pour ceux qui possèdent déjà l'app. Un seul achat, sans publicité, sans abonnement, jamais.
 
 DÉFI QUOTIDIEN
-• 10 questions mixtes, nouvelles chaque minuit
-• Gagnez de 1 à 3 étoiles et gardez votre série
-• Comparez votre score sur les classements Game Center
+- 10 questions mixtes, nouvelles chaque minuit
+- Gagnez de 1 à 3 étoiles et gardez votre série
+- Comparez votre score sur les classements Game Center
 
 DIX MODES DE JEU
-• Addition, Soustraction, Multiplication, Division
-• Carré et Racine carrée
-• Contre la montre — 60 secondes, score maximum
-• Survie — une seule vie, jusqu'où irez-vous ?
-• Mixte — toutes les opérations à la fois
-• Séquence — quel nombre suit ?
+- Addition, Soustraction, Multiplication, Division
+- Carré et Racine carrée
+- Contre la montre — 60 secondes, score maximum
+- Survie — une seule vie, jusqu'où irez-vous ?
+- Mixte — toutes les opérations à la fois
+- Séquence — quel nombre suit ?
 
 UNE PROGRESSION QUI ACCROCHE
-• Montez de niveau avec l'XP de chaque bonne réponse
-• 20 succès à débloquer
-• Suivez vos meilleurs scores et votre historique avec des graphiques clairs
+- Montez de niveau avec l'XP de chaque bonne réponse
+- 20 succès à débloquer
+- Suivez vos meilleurs scores et votre historique avec des graphiques clairs
 
 JOUEZ PARTOUT
-• iPhone et iPad avec une mise en page dédiée
-• Apple Watch pour un sprint mental de 60 secondes
-• Mac, avec raccourcis clavier
+- iPhone et iPad avec une mise en page dédiée
+- Apple Watch pour un sprint mental de 60 secondes
+- Mac, avec raccourcis clavier
 
 SOIGNÉ DANS LES DÉTAILS
-• Son et vibrations agréables (optionnels)
-• Prise en charge complète de VoiceOver et Dynamic Type
-• Mode sombre pensé dès la conception
+- Son et vibrations agréables (optionnels)
+- Prise en charge complète de VoiceOver et Dynamic Type
+- Mode sombre pensé dès la conception
 
 Sans pub. Sans abonnement. Sans suivi. Juste vous et les nombres — chaque jour.
 ```
@@ -212,13 +212,13 @@ Sans pub. Sans abonnement. Sans suivi. Juste vous et les nombres — chaque jour
 ```
 Math Game 2.0 est une réinvention complète — et une mise à jour gratuite.
 
-• DÉFI QUOTIDIEN : un nouveau test de 10 questions chaque jour, le même pour tous, avec étoiles et séries.
-• SÉRIES, XP ET NIVEAUX : revenez chaque jour pour garder votre série ; gagnez de l'XP et montez de niveau.
-• 4 NOUVEAUX MODES : Contre la montre, Survie, Mixte et Séquence.
-• GAME CENTER : classements pour chaque mode et 20 succès.
-• APPLE WATCH ET MAC : jouez sur tous vos appareils Apple.
-• SON, VIBRATIONS ET NOUVEAU DESIGN : une sensation premium, entièrement accessible.
-• PLUS DE LANGUES : désormais en anglais, espagnol, français et portugais.
+- DÉFI QUOTIDIEN : un nouveau test de 10 questions chaque jour, le même pour tous, avec étoiles et séries.
+- SÉRIES, XP ET NIVEAUX : revenez chaque jour pour garder votre série ; gagnez de l'XP et montez de niveau.
+- 4 NOUVEAUX MODES : Contre la montre, Survie, Mixte et Séquence.
+- GAME CENTER : classements pour chaque mode et 20 succès.
+- APPLE WATCH ET MAC : jouez sur tous vos appareils Apple.
+- SON, VIBRATIONS ET NOUVEAU DESIGN : une sensation premium, entièrement accessible.
+- PLUS DE LANGUES : désormais en anglais, espagnol, français et portugais.
 
 Merci de jouer. Votre série commence aujourd'hui.
 ```
@@ -249,32 +249,32 @@ TOTALMENTE RECONSTRUÍDO
 A versão 2.0 é uma evolução do zero — e é grátis para quem já tem o app. Um único pagamento, sem anúncios, sem assinaturas, nunca.
 
 DESAFIO DIÁRIO
-• 10 perguntas mistas, novas a cada meia-noite
-• Ganhe de 1 a 3 estrelas e mantenha sua sequência
-• Compare sua pontuação nos rankings do Game Center
+- 10 perguntas mistas, novas a cada meia-noite
+- Ganhe de 1 a 3 estrelas e mantenha sua sequência
+- Compare sua pontuação nos rankings do Game Center
 
 DEZ MODOS DE JOGO
-• Adição, Subtração, Multiplicação, Divisão
-• Quadrado e Raiz Quadrada
-• Contra o Tempo — 60 segundos, pontuação máxima
-• Sobrevivência — uma vida, até onde você vai?
-• Misto — todas as operações de uma vez
-• Sequência — qual número vem a seguir?
+- Adição, Subtração, Multiplicação, Divisão
+- Quadrado e Raiz Quadrada
+- Contra o Tempo — 60 segundos, pontuação máxima
+- Sobrevivência — uma vida, até onde você vai?
+- Misto — todas as operações de uma vez
+- Sequência — qual número vem a seguir?
 
 PROGRESSO QUE PRENDE
-• Suba de nível com o XP de cada acerto
-• 20 conquistas para desbloquear
-• Acompanhe seus recordes e histórico diário com gráficos claros
+- Suba de nível com o XP de cada acerto
+- 20 conquistas para desbloquear
+- Acompanhe seus recordes e histórico diário com gráficos claros
 
 JOGUE EM TODO LUGAR
-• iPhone e iPad com layout feito para cada um
-• Apple Watch para um sprint mental de 60 segundos
-• Mac, com atalhos de teclado
+- iPhone e iPad com layout feito para cada um
+- Apple Watch para um sprint mental de 60 segundos
+- Mac, com atalhos de teclado
 
 CUIDADO NOS DETALHES
-• Som e vibração agradáveis (ambos opcionais)
-• Suporte completo a VoiceOver e Tipo Dinâmico
-• Modo escuro pensado desde o design
+- Som e vibração agradáveis (ambos opcionais)
+- Suporte completo a VoiceOver e Tipo Dinâmico
+- Modo escuro pensado desde o design
 
 Sem anúncios. Sem assinaturas. Sem rastreamento. Só você e os números — todos os dias.
 ```
@@ -283,13 +283,13 @@ Sem anúncios. Sem assinaturas. Sem rastreamento. Só você e os números — to
 ```
 O Math Game 2.0 é uma reinvenção completa — e é uma atualização grátis.
 
-• DESAFIO DIÁRIO: um novo teste de 10 perguntas todo dia, igual para todos, com estrelas e sequências.
-• SEQUÊNCIAS, XP E NÍVEIS: volte todo dia para manter sua sequência; ganhe XP e suba de nível.
-• 4 MODOS NOVOS: Contra o Tempo, Sobrevivência, Misto e Sequência.
-• GAME CENTER: rankings de cada modo e 20 conquistas.
-• APPLE WATCH E MAC: jogue em todos os seus dispositivos Apple.
-• SOM, VIBRAÇÃO E NOVO VISUAL: uma sensação premium, com acessibilidade completa.
-• MAIS IDIOMAS: agora em inglês, espanhol, francês e português.
+- DESAFIO DIÁRIO: um novo teste de 10 perguntas todo dia, igual para todos, com estrelas e sequências.
+- SEQUÊNCIAS, XP E NÍVEIS: volte todo dia para manter sua sequência; ganhe XP e suba de nível.
+- 4 MODOS NOVOS: Contra o Tempo, Sobrevivência, Misto e Sequência.
+- GAME CENTER: rankings de cada modo e 20 conquistas.
+- APPLE WATCH E MAC: jogue em todos os seus dispositivos Apple.
+- SOM, VIBRAÇÃO E NOVO VISUAL: uma sensação premium, com acessibilidade completa.
+- MAIS IDIOMAS: agora em inglês, espanhol, francês e português.
 
 Obrigado por jogar. Sua sequência começa hoje.
 ```
